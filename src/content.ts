@@ -1,5 +1,5 @@
 export const navigation = [
-  ['Home','/'], ['Services','/services/'], ['Work','/work/'], ['About','/about/'], ['Process','/process/'], ['Contact','/contact/'],
+  ['Home','/'], ['Services','/services/'], ['About','/about/'], ['Process','/process/'], ['Contact','/contact/'],
 ] as const;
 
 export const services = [
@@ -18,12 +18,6 @@ export const steps = [
   {name:'Design', description:'We explore visual directions, prototype the experience and resolve what happens on screens of different sizes.', outcome:'An approved visual direction and responsive prototype.'},
   {name:'Develop', description:'We build the approved experience, connect agreed integrations and give your team a working preview for feedback.', outcome:'A working build with editable content where needed.'},
   {name:'Test & Launch', description:'We review accessibility, responsiveness, performance and functionality, then help with deployment and handover.', outcome:'A live site and a handover guide. Post-launch support can be scoped separately.'},
-];
-
-export const concepts = [
-  {id:'form-field',name:'Form & Field',industry:'Design and objects',type:'Marketing website',challenge:'Give a collection of distinctive objects room to establish its own visual language.',solution:'An editorial launch page with large product forms, spare navigation and a clear path into the collection.',art:'field'},
-  {id:'soft-goods',name:'Soft Goods',industry:'Consumer retail',type:'E-commerce experience',challenge:'Make material, color and product details easy to assess from a small screen.',solution:'A color-led storefront with clear product choices and a short path from browsing to purchase.',art:'goods'},
-  {id:'daymark',name:'Daymark',industry:'Productivity',type:'Interactive web application',challenge:'Show a small team what needs attention without turning planning into a second job.',solution:'A browser workspace with an at-a-glance weekly view and a focused list of upcoming work.',art:'daymark'},
 ];
 
 function httpsUrl(value?: string) {
