@@ -20,7 +20,6 @@ export function Motion(){
         });
         gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((element,index)=>gsap.to(element,{yPercent:index%2?9:-7,rotation:index%2?2:-2,ease:'none',scrollTrigger:{trigger:element.parentElement,start:'top bottom',end:'bottom top',scrub:2}}));
         gsap.utils.toArray<HTMLElement>('.service-item').forEach((element,index)=>gsap.from(element,{x:index%2?24:-24,opacity:.25,duration:.7,ease:'power2.out',scrollTrigger:{trigger:element,start:'top 92%',once:true}}));
-        gsap.utils.toArray<HTMLElement>('[data-logo-scroll]').forEach(element=>gsap.to(element.querySelector('.hero-logo'),{rotation:360,ease:'none',scrollTrigger:{trigger:element,start:'top top',end:'bottom top',scrub:2}}));
       });
       ScrollTrigger.refresh();
       dispose=()=>{context.revert();ScrollTrigger.getAll().forEach(trigger=>trigger.kill())};
