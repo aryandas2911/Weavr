@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {BookingLink,BrandMark} from './navigation';
+import {BookingLink} from './navigation';
 import {contact,siteOrigin} from '../content';
 export function pageMetadata(title:string,description:string,path:string){
   const canonical=siteOrigin?new URL(path,siteOrigin).href:undefined;
@@ -10,7 +10,7 @@ export function PageIntro({label,title,children}:{label:string,title:string,chil
   return <section className="page-intro shell"><Eyebrow>{label}</Eyebrow><h1>{title}</h1><div className="intro-description">{children}</div></section>
 }
 export function Closing({title="Have something good in mind? Let’s make it real."}:{title?:string}){
-  return <section className="closing"><div className="shell closing-inner" data-reveal><div><Eyebrow>Start a conversation</Eyebrow><h2>{title}</h2><p>Tell us what you’re building and where you could use a hand.</p><div className="actions"><BookingLink/><Link className="button outline" href={contact.email?'mailto:'+contact.email:'/contact/#email'}>Email options</Link></div></div><span className="closing-mark"><BrandMark/></span></div></section>
+  return <section className="closing"><div className="shell closing-inner" data-reveal><div><Eyebrow>Start a conversation</Eyebrow><h2>{title}</h2><p>Tell us what you’re building and where you could use a hand.</p><div className="actions"><BookingLink/><Link className="button outline" href={contact.email?'mailto:'+contact.email:'/contact/#email'}>Email options</Link></div></div><span className="closing-logo-stop" aria-hidden="true" data-logo-stop/></div></section>
 }
 export const principles=[
   ['Design with intention','From the first headline to the smallest control, every element helps someone understand or do something.'],
