@@ -26,15 +26,6 @@ button{cursor:pointer;font:inherit}
 .shell{width:min(100%,100rem);padding-inline:var(--gutter);margin-inline:auto}
 .skip{position:fixed;z-index:10;top:.5rem;left:1rem;padding:.6rem 1rem;background:var(--ice);transform:translateY(-180%)}
 .skip:focus{transform:none}
-.weave-intro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:var(--paper);animation:intro-fade 1s ease 2.15s forwards;pointer-events:none}
-.weave-intro svg,.weave-intro>img{position:absolute;width:min(78vw,48rem);height:auto}
-.weave-intro svg{overflow:visible}
-.weave-intro>img{opacity:0;animation:intro-logo .35s ease 1.7s forwards}
-.intro-strand{fill:none;stroke-width:25;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1600;stroke-dashoffset:1600;animation:strand-weave 1.5s cubic-bezier(.65,0,.3,1) forwards}
-.strand-lilac{stroke:var(--lilac)}.strand-navy{stroke:var(--navy);animation-delay:.12s}.strand-coral{stroke:var(--coral);animation-delay:.24s}
-@keyframes strand-weave{to{stroke-dashoffset:0}}
-@keyframes intro-logo{to{opacity:1}}
-@keyframes intro-fade{to{opacity:0;visibility:hidden}}
 .scrolling-logo{position:fixed;top:50%;left:50%;z-index:0;pointer-events:none;opacity:.2;will-change:transform,opacity;width:13rem;height:auto;filter:drop-shadow(0 .5rem 1rem #0a407615);}
 .top{position:sticky;top:.8rem;z-index:5;background:transparent;padding-inline:var(--gutter);margin-top:.8rem}
 .top-inner{width:min(100%,100rem);height:4.65rem;margin:auto;padding:0 1.1rem 0 1.35rem;display:flex;align-items:center;justify-content:space-between;gap:1.1rem;background:color-mix(in srgb,var(--paper) 88%,white);border:1px solid color-mix(in srgb,var(--navy) 12%,transparent);border-radius:999px;box-shadow:0 .55rem 2rem color-mix(in srgb,var(--navy) 8%,transparent);backdrop-filter:blur(18px)}
@@ -246,4 +237,4 @@ dd{margin-top:.4rem;color:var(--slate)}
   .process-logo{max-width:12rem;margin:1.2rem auto 0}
   .fields{grid-template-columns:1fr}
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-delay:0ms!important;transition-duration:.001ms!important}.woven-mark{display:none}.hero-logo{opacity:1}.weave-intro{display:none}.scrolling-logo{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-delay:0ms!important;transition-duration:.001ms!important}.woven-mark{display:none}.hero-logo{opacity:1}.scrolling-logo{display:none}}

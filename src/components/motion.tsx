@@ -7,6 +7,11 @@ export function Motion(){
   const traveler=useRef<HTMLImageElement>(null);
   useEffect(()=>{
     const image=traveler.current;
+    if(pathname!=='/'){
+      if(image)image.style.display='none';
+      return;
+    }
+    if(image)image.style.display='';
     let frame=0;
     const updateTraveler=()=>{
       frame=0;
@@ -70,5 +75,5 @@ export function Motion(){
     void start();
     return ()=>{cancelled=true;media.removeEventListener('change',preference);dispose();window.removeEventListener('scroll',onScroll);window.removeEventListener('resize',onScroll);cancelAnimationFrame(frame)};
   },[pathname]);
-  return <><div className="weave-intro" aria-hidden="true"><svg viewBox="0 0 641 456" role="presentation"><path className="intro-strand strand-lilac" d="M90 70 C150 35 188 72 220 132 L297 282 C321 326 353 321 381 278 L450 153 C477 102 520 78 570 110"/><path className="intro-strand strand-navy" d="M60 205 C113 203 150 174 178 120 C201 75 238 73 265 121 L366 310 C392 360 430 356 460 306 L515 216 C543 171 585 176 608 204"/><path className="intro-strand strand-coral" d="M48 278 C105 257 148 247 180 274 L251 342 C285 375 315 364 343 325 L411 226 C444 178 477 192 508 232 L552 291 C572 318 598 319 621 305"/></svg><img src="/Logo.png" alt=""/></div><img ref={traveler} className="scrolling-logo" src="/Logo.png" alt="" aria-hidden="true"/></>;
+  return pathname==='/'?<img ref={traveler} className="scrolling-logo" src="/Logo.png" alt="" aria-hidden="true"/>:null;
 }
