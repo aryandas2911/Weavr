@@ -9,7 +9,7 @@ const Arrow=({className='arrow'}:{className?:string})=><svg className={className
 export function Wordmark({large=false}:{large?:boolean}){return <Link className={`wordmark${large?' wordmark-large':''}`} href="/" aria-label="WEAVR home"><img src="/Logo.png" alt="" width="641" height="456" fetchPriority="high"/><span className="wordmark-type">WEAVR<span>.</span></span></Link>}
 export function BrandMark(){return <img src="/Logo.png" alt="WEAVR" width="641" height="456"/>}
 export function BookingLink({className='button',label='Start a project'}:{className?:string;label?:string}){
-  return <Link className={className} href={contact.booking || '/contact/#booking'} data-magnetic>{label}<Arrow/></Link>;
+  return <Link className={className} href={contact.booking || '/contact/#booking'}>{label}<Arrow/></Link>;
 }
 
 export function Header(){
