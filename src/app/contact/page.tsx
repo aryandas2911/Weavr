@@ -1,15 +1,9 @@
 import {PageIntro,pageMetadata} from '../../components/editorial';
-import {Inquiry} from '../../components/inquiry';
-import {contact,services} from '../../content';
-export const metadata=pageMetadata('Contact','Prepare a project inquiry or get in touch with WEAVR.','/contact/');
-const channels=[
-  {id:'booking',name:'Discovery call',url:contact.booking,label:'Choose a time',setup:'Online booking is currently unavailable.'},
-  {id:'email',name:'Email',url:contact.email?'mailto:'+contact.email:'',label:contact.email,setup:'An email address has yet to be configured.'},
-  {id:'whatsapp',name:'WhatsApp',url:contact.whatsapp,label:'Open WhatsApp',setup:'WhatsApp has yet to be configured.'},
-];
+export const metadata=pageMetadata('Contact','Contact the WEAVR team directly.','/contact/');
 export default function Contact(){return <>
-  <PageIntro label="Contact" title="Let’s make something worth looking at."><p>Tell us what you’re building. We’ll take it from there.</p></PageIntro>
-  <div className="shell contact-grid">{services.map(service=><span className="contact-anchor" id={service.id} key={service.id}/>)}<Inquiry/>
-    <aside aria-label="Ways to get in touch">{channels.map(channel=><section key={channel.id} id={channel.id}><h2>{channel.name}</h2>{channel.url?<a className="text-link" href={channel.url}>{channel.label}</a>:<p>{channel.setup}</p>}</section>)}</aside>
-  </div>
+  <PageIntro label="Contact" title="Talk to the people making the work."><p>For now, the best way to start is to contact the team directly.</p></PageIntro>
+  <section className="shell team-contact" id="booking" aria-label="WEAVR team contacts">
+    <article><h2>Aryan Das</h2><dl><div><dt>Email</dt><dd><a href="mailto:aryandas2911@gmail.com">aryandas2911@gmail.com</a></dd></div><div><dt>Phone</dt><dd><a href="tel:+917303025751">+91 73030 25751</a></dd></div></dl></article>
+    <article><h2>Sandra Rosa Prince</h2><dl><div><dt>Email</dt><dd><a href="mailto:sandrarosaprince@gmail.com">sandrarosaprince@gmail.com</a></dd></div><div><dt>Phone</dt><dd><a href="tel:+918130225400">+91 81302 25400</a></dd></div></dl></article>
+  </section>
 </>}
