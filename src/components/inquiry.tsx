@@ -34,9 +34,8 @@ export function Inquiry(){
       setStatus('Your brief is ready to save on this device.');
     } catch {setStatus('The download couldn’t start. Your brief is still in the form.')}
   }
-  return <form className="inquiry" id="inquiry" onSubmit={prepare}>
-    <h2>Project inquiry</h2>
-    <p>{contact.email?'Prepare an email with the details below.':'Online delivery is currently unavailable. Fill in the form to download your project brief.'}</p>
+  return <form className="inquiry" id="inquiry" onSubmit={prepare} data-reveal>
+    <div className="inquiry-head"><h2>Project inquiry</h2><p>{contact.email?'A few details and we’ll take it from there.':'Fill this in to download a project brief.'}</p></div>
     <div className="fields">
       <label>Full name<input name="name" autoComplete="name" required maxLength={120} pattern=".*\S.*"/></label>
       <label>Email address<input name="email" type="email" autoComplete="email" required maxLength={254}/></label>
@@ -44,9 +43,8 @@ export function Inquiry(){
       <label>Project type<select name="project" required value={project} onChange={event=>setProject(event.target.value)}><option value="">Select a project type</option>{services.map(service=><option value={service.id} key={service.id}>{service.name}</option>)}<option value="other">Other / still deciding</option></select></label>
       <label>Estimated budget <small>(optional)</small><input name="budget" maxLength={120}/></label>
       <label>Preferred timeline <small>(optional)</small><input name="timeline" maxLength={120}/></label>
-      <label className="wide">Project description<textarea name="description" required minLength={10} maxLength={3000} rows={5} onChange={event=>event.target.setCustomValidity(event.target.value.trim().length>=10||!event.target.value?'':'Please describe your project in at least 10 characters.')}/></label>
+      <label className="wide">Project description<textarea name="description" required minLength={10} maxLength={3000} rows={4} onChange={event=>event.target.setCustomValidity(event.target.value.trim().length>=10||!event.target.value?'':'Please describe your project in at least 10 characters.')}/></label>
     </div>
-    <button className="button" type="submit">{contact.email?'Prepare email draft':'Download project brief'}</button>
-    <p role="status" aria-live="polite">{status}</p>
+    <div className="form-foot"><button className="button" type="submit">{contact.email?'Prepare email draft':'Download project brief'}<span className="arrow" aria-hidden="true">↗</span></button><p role="status" aria-live="polite">{status}</p></div>
   </form>
 }

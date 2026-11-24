@@ -1,79 +1,83 @@
 'use client';
-import {useEffect} from 'react';
+import {useEffect,useRef} from 'react';
 import {usePathname} from 'next/navigation';
-import {useRef} from 'react';
+
 export function Motion(){
   const pathname=usePathname();
   const traveler=useRef<HTMLImageElement>(null);
+  const progress=useRef<HTMLElement>(null);
   useEffect(()=>{
     const image=traveler.current;
-    if(pathname!=='/'){
-      if(image)image.style.display='none';
-      return;
-    }
-    if(image)image.style.display='';
+    const bar=progress.current;
+    const header=document.querySelector<HTMLElement>('[data-header]');
+    const media=matchMedia('(prefers-reduced-motion: no-preference)');
     let frame=0;
-    const updateTraveler=()=>{
+    const update=()=>{
       frame=0;
-      if(!image)return;
-      const scroll=window.scrollY;
-      const endMarker=document.querySelector<HTMLElement>('.closing-logo-stop');
-      const endRect=endMarker?.getBoundingClientRect();
-      const endScroll=endRect?Math.max(0,endRect.top+scroll-innerHeight*.5):Math.max(1,document.documentElement.scrollHeight-innerHeight);
-      const progress=Math.min(scroll, endScroll)/Math.max(1,endScroll);
-      const width=innerWidth;
-      const height=innerHeight;
-      let x=width/2+Math.sin(progress*Math.PI*5)*width*.3;
-      let y=height/2+Math.cos(progress*Math.PI*4)*height*.28;
-      let rotation=progress*1080+Math.sin(progress*Math.PI*6)*28;
-      let opacity=.2;
-      let size=Math.min(width*.3,220);
-      const targets=[...document.querySelectorAll<HTMLElement>('.logo-hero,[data-logo-stop]')];
-      for(const target of targets){
-        const rect=target.getBoundingClientRect();
-        const targetDocY=rect.top+scroll+rect.height/2;
-        const distance=scroll+height*.5-targetDocY;
-        const weight=Math.exp(-Math.pow(distance/(height*.42),2));
-        if(weight>.02){
-          x=x*(1-weight)+(rect.left+rect.width/2)*weight;
-          y=y*(1-weight)+(rect.top+rect.height/2)*weight;
-          rotation*=1-weight;
-          opacity=Math.max(opacity,.2+.8*weight);
-          size=size*(1-weight)+rect.width*.68*weight;
-        }
+      const scroll=window.scrollY, height=innerHeight, width=innerWidth;
+      const max=Math.max(1,document.documentElement.scrollHeight-height);
+      if(bar)bar.style.transform=`scaleX(${Math.min(1,scroll/max)})`;
+      header?.classList.toggle('is-scrolled',scroll>24);
+      if(!image||!media.matches)return;
+      const stops=[...document.querySelectorAll<HTMLElement>('[data-logo-stop]')];
+      const finalRect=stops.at(-1)?.getBoundingClientRect();
+      const end=finalRect?Math.max(1,finalRect.top+scroll+finalRect.height/2-height/2):max;
+      if(finalRect&&scroll>=end){
+        image.style.opacity='1';
+        image.style.width=`${finalRect.width*.68}px`;
+        image.style.transform=`translate3d(${finalRect.left+finalRect.width/2-width/2}px,0,0) translate(-50%,-50%)`;
+        return;
+      }
+      const t=Math.min(scroll,end)/end;
+      let x=width/2+Math.sin(t*Math.PI*4)*width*.28;
+      let y=height/2+Math.cos(t*Math.PI*3)*height*.22;
+      let rotation=t*720, opacity=.18, size=Math.min(width*.24,200);
+      for(const stop of stops){
+        const rect=stop.getBoundingClientRect();
+        const distance=height/2-rect.top-rect.height/2;
+        const weight=Math.exp(-Math.pow(distance/(height*.38),2));
+        if(weight<.02)continue;
+        x=x*(1-weight)+(rect.left+rect.width/2)*weight;
+        y=y*(1-weight)+(rect.top+rect.height/2)*weight;
+        rotation*=1-weight;
+        opacity=Math.max(opacity,.18+.82*weight);
+        size=size*(1-weight)+rect.width*(stop.classList.contains('hero-art-mark')?1:.68)*weight;
       }
       image.style.opacity=String(opacity);
       image.style.width=`${size}px`;
       image.style.transform=`translate3d(${x-width/2}px,${y-height/2}px,0) translate(-50%,-50%) rotate(${rotation}deg)`;
     };
-    const onScroll=()=>{if(!frame)frame=requestAnimationFrame(updateTraveler)};
-    window.addEventListener('scroll',onScroll,{passive:true});
-    window.addEventListener('resize',onScroll);
-    updateTraveler();
-    let dispose=()=>{};
-    let cancelled=false;
-    const media=matchMedia('(prefers-reduced-motion: no-preference)');
-    async function start(){
+    const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)};
+    window.addEventListener('scroll',schedule,{passive:true});
+    window.addEventListener('resize',schedule);
+    schedule();
+    let disposed=false, cleanup=()=>{};
+    async function animate(){
       if(!media.matches)return;
       const [{gsap},{ScrollTrigger}]=await Promise.all([import('gsap'),import('gsap/ScrollTrigger')]);
-      if(cancelled || !media.matches)return;
+      if(disposed||!media.matches)return;
       gsap.registerPlugin(ScrollTrigger);
+      document.documentElement.classList.add('motion');
       const context=gsap.context(()=>{
-        gsap.from('.hero-line',{yPercent:105,duration:.85,stagger:.12,ease:'power3.out',clearProps:'transform'});
+        gsap.from('.hero-line',{yPercent:65,opacity:0,duration:.85,stagger:.1,ease:'power3.out'});
+        gsap.from('[data-split]',{y:22,opacity:0,duration:.75,ease:'power2.out'});
         gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach(element=>{
-          if(element.getBoundingClientRect().top<innerHeight*.8)return;
-          gsap.from(element,{y:28,opacity:.45,duration:.75,ease:'power2.out',clearProps:'transform,opacity',scrollTrigger:{trigger:element,start:'top 90%',once:true}});
+          if(element.getBoundingClientRect().top<innerHeight*.85)return;
+          gsap.from(element,{y:30,opacity:0,duration:.7,ease:'power2.out',scrollTrigger:{trigger:element,start:'top 90%',once:true}});
         });
-        gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((element,index)=>gsap.to(element,{yPercent:index%2?9:-7,rotation:index%2?2:-2,ease:'none',scrollTrigger:{trigger:element.parentElement,start:'top bottom',end:'bottom top',scrub:2}}));
-        gsap.utils.toArray<HTMLElement>('.service-item').forEach((element,index)=>gsap.from(element,{x:index%2?24:-24,opacity:.25,duration:.7,ease:'power2.out',scrollTrigger:{trigger:element,start:'top 92%',once:true}}));
+        gsap.utils.toArray<HTMLElement>('[data-stagger]').forEach(group=>{
+          gsap.from(Array.from(group.children),{y:18,opacity:0,duration:.55,stagger:.055,ease:'power2.out',scrollTrigger:{trigger:group,start:'top 88%',once:true}});
+        });
+        gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach(element=>{
+          gsap.to(element,{yPercent:7,ease:'none',scrollTrigger:{trigger:element.parentElement,start:'top bottom',end:'bottom top',scrub:1}});
+        });
       });
-      ScrollTrigger.refresh();
-      dispose=()=>{context.revert();ScrollTrigger.getAll().forEach(trigger=>trigger.kill())};
+      cleanup=()=>{context.revert();document.documentElement.classList.remove('motion')};
     }
-    function preference(){dispose();void start()}
+    const preference=()=>{cleanup();cleanup=()=>{};schedule();void animate()};
     media.addEventListener('change',preference);
-    void start();
-    return ()=>{cancelled=true;media.removeEventListener('change',preference);dispose();window.removeEventListener('scroll',onScroll);window.removeEventListener('resize',onScroll);cancelAnimationFrame(frame)};
+    void animate();
+    return ()=>{disposed=true;cleanup();media.removeEventListener('change',preference);window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);cancelAnimationFrame(frame)};
   },[pathname]);
-  return pathname==='/'?<img ref={traveler} className="scrolling-logo" src="/Logo.png" alt="" aria-hidden="true"/>:null;
+  return <><div className="scroll-progress" aria-hidden="true"><i ref={progress}/></div>{pathname==='/'?<img ref={traveler} className="scrolling-logo" src="/Logo.png" alt="" width="641" height="456" aria-hidden="true"/>:null}</>;
 }

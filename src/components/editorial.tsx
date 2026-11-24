@@ -1,20 +1,21 @@
 import Link from 'next/link';
 import {BookingLink} from './navigation';
 import {contact,siteOrigin} from '../content';
+
 export function pageMetadata(title:string,description:string,path:string){
   const canonical=siteOrigin?new URL(path,siteOrigin).href:undefined;
   return {title,description,alternates:{canonical},openGraph:{title,description,url:canonical,images:['/Logo.png']}};
 }
 export function Eyebrow({children}:{children:React.ReactNode}){return <p className="eyebrow"><i aria-hidden="true"/>{children}</p>}
-export function PageIntro({label,title,children}:{label:string,title:string,children:React.ReactNode}){
-  return <section className="page-intro shell"><Eyebrow>{label}</Eyebrow><h1>{title}</h1><div className="intro-description">{children}</div></section>
+export function PageIntro({label,title,children}:{label:string;title:string;children:React.ReactNode}){
+  return <section className="page-intro shell"><Eyebrow>{label}</Eyebrow><h1 data-split>{title}</h1><div className="page-lead" data-reveal>{children}</div></section>
 }
-export function Closing({title="Have something good in mind? Let’s make it real."}:{title?:string}){
-  return <section className="closing"><div className="shell closing-inner" data-reveal><div><Eyebrow>Start a conversation</Eyebrow><h2>{title}</h2><p>Tell us what you’re building and where you could use a hand.</p><div className="actions"><BookingLink/><Link className="button outline" href={contact.email?'mailto:'+contact.email:'/contact/#email'}>Email options</Link></div></div><span className="closing-logo-stop" aria-hidden="true" data-logo-stop/></div></section>
+export function Closing({title="Good idea? Let’s make it real."}:{title?:string}){
+  return <section className="closing"><div className="shell closing-inner" data-reveal><div className="closing-copy"><Eyebrow>Start a conversation</Eyebrow><h2>{title}</h2><div className="actions"><BookingLink/><Link className="button outline" href={contact.email?'mailto:'+contact.email:'/contact/#email'}>Email us</Link></div></div><span className="closing-logo-stop" aria-hidden="true" data-logo-stop><img src="/Logo.png" alt="" width="641" height="456" loading="lazy"/></span></div></section>
 }
 export const principles=[
-  ['Design with intention','From the first headline to the smallest control, every element helps someone understand or do something.'],
-  ['Engineering with care','We pay attention to the things people feel immediately: speed, responsiveness, and an interface that works as expected.'],
-  ['Clear communication','We share work early, explain decisions in plain language and agree on what happens next.'],
-  ['Built around the business','We shape our work around your audience, goals, and what your team needs to manage after launch.'],
+  ['Intentional design','Every element earns its place.'],
+  ['Careful engineering','Fast, responsive and dependable.'],
+  ['Plain communication','Early work, clear decisions, no jargon.'],
+  ['Built for your business','Shaped around your audience and team.'],
 ];

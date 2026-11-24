@@ -1,8 +1,8 @@
 import type {Metadata} from 'next';
 import '@fontsource/manjari/latin-400.css';
 import '@fontsource/manjari/latin-700.css';
-import '@fontsource/manjari/latin-100.css';
 import './styles.css';
+import './revamp.css';
 import {Header,Footer} from '../components/navigation';
 import {Motion} from '../components/motion';
 import {siteOrigin} from '../content';
