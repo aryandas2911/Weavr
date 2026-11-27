@@ -1,29 +1,39 @@
 import Link from 'next/link';
 import {BookingLink} from '../components/navigation';
 import {Closing,Eyebrow,principles,pageMetadata} from '../components/editorial';
-import {Sculpture} from '../components/sculpture';
+import WebThreads from '../components/WebThreads';
 import {ServiceAccordion} from '../components/service-accordion';
 import {steps} from '../content';
 
-export const metadata={...pageMetadata('Independent Creative Development Studio','WEAVR designs and builds distinctive digital experiences for ambitious brands.','/'),title:{absolute:'WEAVR | Independent Creative Development Studio'}};
+export const metadata={...pageMetadata('Web Design & Development for Growing Businesses','Fast, affordable websites, SEO and custom web applications for Indian small and medium businesses.','/'),title:{absolute:'Weavr | Web Design & Development for Growing Businesses'}};
 
 const tickerWords=['Strategy','Design','Development','Detail'];
 
 export default function Home(){
   return <>
-    <section className="shell hero">
-      <div className="hero-copy"><Eyebrow>Independent creative studio</Eyebrow>
-        <h1 aria-label="Good ideas deserve a better web."><span><b className="hero-line">Good ideas</b></span><span><b className="hero-line">deserve a</b></span><span><b className="hero-line">better <em>web.</em></b></span></h1>
-        <p className="hero-tagline">Design. Development. Detail.</p>
-        <div className="actions"><BookingLink/><Link className="button outline" href="/services/">Explore services <span className="arrow" aria-hidden="true">↗</span></Link></div>
+    <section className="hero">
+      <div className="hero-copy">
+        <h1 aria-label="Websites built for your business."><span><b className="hero-line">Websites</b></span><span><b className="hero-line">built for</b></span><span><b className="hero-line">your <em>business.</em></b></span></h1>
+        <p className="hero-tagline">Fast, affordable websites and web apps, tailored to how your business works. Design, development, SEO and automation for growing Indian businesses.</p>
+        <div className="actions"><BookingLink label="Discuss your project"/><Link className="button outline" href="/services/">Explore services <span className="arrow" aria-hidden="true">↗</span></Link></div>
       </div>
-      <Sculpture/>
-      <a href="#studio" className="scroll-link"><span aria-hidden="true"/> Scroll to explore</a>
+      <div className="hero-visual" aria-hidden="true">
+        <WebThreads
+          colors={['#a98cde','#d5b9ed','#b698e1']}
+          lightMode
+          speed={0.09}
+          glow={0.017}
+          opacity={0.48}
+          grain={0}
+          mouseInteraction={false}
+          pulseOnClick={false}
+        />
+      </div>
     </section>
 
     <div className="ticker" aria-label="WEAVR disciplines"><div className="ticker-track">{tickerWords.map((word)=><span key={word}>{word}<i aria-hidden="true"/></span>)}</div></div>
 
-    <section className="band blue" id="studio"><div className="shell studio-grid" data-reveal><div className="studio-head"><Eyebrow>The studio</Eyebrow><h2>Built to look different.<br/>Made to work harder.</h2></div><div className="studio-copy"><p>Strategy, design and code under one roof. One small team, close to the work.</p><div className="studio-visual" aria-hidden="true"><span>Strategy</span><i/><span>Design</span><i/><span>Development</span></div><Link className="text-link" href="/about/">Meet WEAVR <span aria-hidden="true">↗</span></Link></div></div></section>
+    <section className="band blue" id="studio"><div className="shell studio-grid" data-reveal><div className="studio-head"><Eyebrow>For growing businesses</Eyebrow><h2>Digital tools that work as hard as you do.</h2></div><div className="studio-copy"><p>We build websites, landing pages and custom applications around your customers, budget and day-to-day needs. One team from first brief to launch.</p><div className="studio-visual" aria-hidden="true"><span>Strategy</span><i/><span>Design</span><i/><span>Development</span></div><Link className="text-link" href="/about/">Meet Weavr <span aria-hidden="true">↗</span></Link></div></div></section>
 
     <section className="storytelling" aria-labelledby="story-title" data-story>
       <div className="story-sticky">

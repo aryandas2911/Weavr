@@ -7,8 +7,8 @@ import {Header,Footer} from '../components/navigation';
 import {Motion} from '../components/motion';
 import {siteOrigin} from '../content';
 export const metadata:Metadata={
-  title:{default:'WEAVR | Independent Creative Development Studio',template:'%s | WEAVR'},
-  description:'WEAVR designs and builds distinctive websites and web applications for ambitious brands.',
+  title:{default:'Weavr | Web Design & Development for Growing Businesses',template:'%s | WEAVR'},
+  description:'Weavr builds fast, affordable websites, SEO improvements and custom web applications for Indian small and medium businesses.',
   metadataBase:siteOrigin?new URL(siteOrigin):undefined,
   openGraph:{siteName:'WEAVR',type:'website',locale:'en_US'},
   icons:{icon:'/Logo.png'},
