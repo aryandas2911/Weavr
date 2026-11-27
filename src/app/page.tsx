@@ -13,15 +13,22 @@ export default function Home(){
   return <>
     <section className="hero">
       <div className="hero-copy">
-        <h1 aria-label="Websites built for your business."><span><b className="hero-line">Websites</b></span><span><b className="hero-line">built for</b></span><span><b className="hero-line">your <em>business.</em></b></span></h1>
-        <p className="hero-tagline">Fast, affordable websites and web apps, tailored to how your business works. Design, development, SEO and automation for growing Indian businesses.</p>
-        <div className="actions"><BookingLink label="Discuss your project"/><Link className="button outline" href="/services/">Explore services <span className="arrow" aria-hidden="true">↗</span></Link></div>
+        <h1 aria-label="Websites built for your business.">
+          <span><b className="hero-line">Websites built for</b></span>
+          <span><b className="hero-line">your <em>business.</em></b></span>
+        </h1>
+        <p className="hero-tagline">Fast, affordable websites and web apps, tailored to how your business works. Design, development, SEO and automation for growing businesses.</p>
+        <div className="actions">
+          <BookingLink className="button hero-booking" label="Discuss your project" showArrow={false}/>
+          <Link className="button outline hero-services" href="/services/">Explore services</Link>
+        </div>
       </div>
       <div className="hero-visual" aria-hidden="true">
         <WebThreads
           colors={['#a98cde','#d5b9ed','#b698e1']}
           lightMode
           speed={0.09}
+          thickness={1.65}
           glow={0.017}
           opacity={0.48}
           grain={0}

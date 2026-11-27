@@ -8,8 +8,8 @@ const Arrow=({className='arrow'}:{className?:string})=><svg className={className
 
 export function Wordmark({large=false}:{large?:boolean}){return <Link className={`wordmark${large?' wordmark-large':''}`} href="/" aria-label="Weavr home"><img src="/Logo.png" alt="" width="641" height="456" fetchPriority="high"/><span className="wordmark-type">Weavr</span></Link>}
 export function BrandMark(){return <img src="/Logo.png" alt="WEAVR" width="641" height="456"/>}
-export function BookingLink({className='button',label='Start a project'}:{className?:string;label?:string}){
-  return <Link className={className} href={contact.booking || '/contact/#booking'}>{label}<Arrow/></Link>;
+export function BookingLink({className='button',label='Start a project',showArrow=true}:{className?:string;label?:string;showArrow?:boolean}){
+  return <Link className={className} href={contact.booking || '/contact/#booking'}>{label}{showArrow&&<Arrow/>}</Link>;
 }
 
 export function Header(){
@@ -19,7 +19,7 @@ export function Header(){
   const closeMenu=()=>{if(menu.current?.open)menu.current.close()};
   const active=(href:string)=>pathname.replace(/\/$/,'')===href.replace(/\/$/,'');
   const makeLinks=()=>navigation.map(([name,href])=>(
-    <Link key={href} href={href} aria-current={active(href)?'page':undefined} onClick={closeMenu}>
+    <Link key={href} href={href} className={name==='Contact'?'nav-contact':undefined} aria-current={active(href)?'page':undefined} onClick={closeMenu}>
       {name==='Contact'?'Contact Us':name}
     </Link>
   ));

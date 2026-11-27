@@ -335,6 +335,19 @@ body:has(.hero) .closing-logo-stop img{display:none}
 }
 .top .desktop-nav a:hover { color: var(--violet); letter-spacing: .055em; }
 .top .desktop-nav a[aria-current="page"] { background: white; color: var(--navy); }
+.top .desktop-nav .nav-contact {
+  margin-inline-start: .2rem;
+  background-color: var(--lavender);
+  color: var(--navy);
+  transition: background-color .2s ease, color .2s ease;
+}
+.top .desktop-nav .nav-contact:hover {
+  background-color: color-mix(in srgb, var(--lavender) 80%, var(--lilac));
+  color: var(--navy);
+}
+.top .desktop-nav .nav-contact[aria-current="page"] {
+  box-shadow: inset 0 0 0 1px var(--violet);
+}
 
 main:has(> .hero) { padding-top: 0; }
 .hero {
@@ -371,7 +384,7 @@ main:has(> .hero) { padding-top: 0; }
   letter-spacing: -.065em;
 }
 .hero h1 span { display: block; overflow: visible; }
-.hero-line { display: inline-block; }
+.hero .hero-line { display: inline-block; white-space: nowrap; }
 .hero-copy > .hero-tagline:not(.eyebrow) {
   width: min(100%, 45rem);
   max-width: none;
@@ -391,6 +404,62 @@ main:has(> .hero) { padding-top: 0; }
   min-height: 3.35rem;
   padding: .85rem 1.45rem;
   font-size: 1rem;
+}
+
+@property --hero-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes hero-border-rotate {
+  to { --hero-border-angle: 1turn; }
+}
+.hero .actions .hero-booking {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--navy);
+  color: white;
+  border-color: transparent;
+}
+.hero-booking::before,
+.hero-booking::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.hero-booking::before {
+  z-index: -2;
+  inset: -1px;
+  background: conic-gradient(from var(--hero-border-angle, 0deg), var(--navy), var(--violet), var(--lavender), var(--lilac), var(--navy));
+  animation: hero-border-rotate 4s linear infinite;
+}
+.hero-booking::after {
+  z-index: -1;
+  inset: 1px;
+  background-color: var(--navy);
+  transition: background-color .22s ease;
+}
+.hero-booking:is(:hover, :focus-visible)::after {
+  background-color: color-mix(in srgb, var(--navy) 64%, var(--violet));
+}
+.hero .actions .hero-services {
+  border-color: var(--violet);
+  background-color: var(--paper);
+  color: var(--navy);
+  transition: background-color .22s ease, border-color .22s ease;
+}
+.hero .actions .hero-services:is(:hover, :focus-visible) {
+  border-color: var(--navy);
+  background-color: var(--lavender);
+  color: var(--navy);
+}
+.hero .actions .button:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-booking::before { animation: none; }
 }
 .hero-visual {
   position: absolute;
@@ -413,6 +482,6 @@ main:has(> .hero) { padding-top: 0; }
 }
 @media (max-width: 600px) {
   .hero { padding-top: 4.1rem; }
-  .hero h1 { font-size: clamp(2.5rem, 11vw, 4rem); }
+  .hero h1 { font-size: clamp(1.75rem, 9vw, 4rem); }
   .hero .actions .button { padding-inline: 1.15rem; }
 }
