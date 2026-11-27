@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import {BookingLink} from '../components/navigation';
 import {Closing,Eyebrow,principles,pageMetadata} from '../components/editorial';
-import WebThreads from '../components/WebThreads';
+import {HeroActions} from '../components/hero-actions';
+import {HeroAtmosphere} from '../components/hero-atmosphere';
 import {ServiceAccordion} from '../components/service-accordion';
 import {steps} from '../content';
 
@@ -18,24 +18,9 @@ export default function Home(){
           <span><b className="hero-line">your <em>business.</em></b></span>
         </h1>
         <p className="hero-tagline">Fast, affordable websites and web apps, tailored to how your business works. Design, development, SEO and automation for growing businesses.</p>
-        <div className="actions">
-          <BookingLink className="button hero-booking" label="Discuss your project" showArrow={false}/>
-          <Link className="button outline hero-services" href="/services/">Explore services</Link>
-        </div>
+        <HeroActions/>
       </div>
-      <div className="hero-visual" aria-hidden="true">
-        <WebThreads
-          colors={['#a98cde','#d5b9ed','#b698e1']}
-          lightMode
-          speed={0.09}
-          thickness={1.65}
-          glow={0.017}
-          opacity={0.48}
-          grain={0}
-          mouseInteraction={false}
-          pulseOnClick={false}
-        />
-      </div>
+      <HeroAtmosphere/>
     </section>
 
     <div className="ticker" aria-label="WEAVR disciplines"><div className="ticker-track">{tickerWords.map((word)=><span key={word}>{word}<i aria-hidden="true"/></span>)}</div></div>
