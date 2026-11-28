@@ -12,7 +12,7 @@ const revealSelector = [
 ].join(', ');
 
 const parallaxLayerSelector = [
-  '.ticker-track', '.section-head', '.approach-art', '.why-head', '.closing-copy',
+  '.ticker-track', '.section-head', '.services-showcase__head', '.approach-art', '.why-head', '.closing-copy',
   '.page-intro > h1', '.about-grid .hero-art-glow', '.editorial-grid > :first-child',
   '.service-detail > dl', '.process-logo', '.team-contact > article:last-child',
   '.footer > small',
@@ -72,6 +72,14 @@ export function Motion(){
           }
         };
         reveal(document.querySelectorAll<HTMLElement>(revealSelector));
+
+        const serviceList = document.querySelector<HTMLElement>('[data-service-entrance]');
+        if (serviceList && serviceList.getBoundingClientRect().top >= innerHeight * .92) {
+          gsap.from(serviceList.children, {
+            y: 16, opacity: .35, duration: .8, stagger: .06, ease: 'power2.out', clearProps: 'opacity,transform',
+            scrollTrigger: {trigger: serviceList, start: 'clamp(top 92%)', once: true},
+          });
+        }
 
         if (hero) {
           gsap.to('.hero-visual', {

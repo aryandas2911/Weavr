@@ -1,8 +1,10 @@
-.approach-stages {
+.band.approach-stages {
+  --approach-edge-size: clamp(4.25rem, 10.5vw, 10.5rem);
   position: relative;
   isolation: isolate;
   overflow: clip;
   min-height: clamp(40rem, 54vw, 49rem);
+  padding-block: calc(var(--approach-edge-size) + clamp(1.35rem, 1.8vw, 1.85rem));
   background: var(--navy);
   color: var(--paper);
 }
@@ -149,9 +151,39 @@
 
 .approach-stages__visual {
   position: absolute;
+  z-index: -1;
   inset: 0;
   pointer-events: none;
   mask-image: linear-gradient(90deg, transparent, rgb(0 0 0 / 9%) 25%, rgb(0 0 0 / 24%) 49%, rgb(0 0 0 / 78%) 76%, #000);
+}
+
+.approach-stages::before,
+.approach-stages::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset-inline: 0;
+  height: var(--approach-edge-size);
+  background: linear-gradient(
+    var(--edge-direction),
+    var(--edge-color),
+    color-mix(in srgb, var(--edge-color) 94%, transparent) 15%,
+    color-mix(in srgb, var(--edge-color) 72%, transparent) 35%,
+    color-mix(in srgb, var(--edge-color) 34%, transparent) 60%,
+    color-mix(in srgb, var(--edge-color) 7%, transparent) 85%,
+    transparent
+  );
+  pointer-events: none;
+}
+.approach-stages::before {
+  --edge-color: var(--ice);
+  --edge-direction: to bottom;
+  inset-block-start: 0;
+}
+.approach-stages::after {
+  --edge-color: var(--paper);
+  --edge-direction: to top;
+  inset-block-end: 0;
 }
 
 .approach-stages__fallback,
@@ -172,7 +204,7 @@
 }
 
 @media (max-width: 900px) {
-  .approach-stages { min-height: 0; }
+  .band.approach-stages { min-height: 0; }
   .approach-stages__content { width: min(100%, 42rem); }
   .approach-stages__visual {
     mask-image: linear-gradient(115deg, transparent 5%, rgb(0 0 0 / 13%) 42%, rgb(0 0 0 / 40%));

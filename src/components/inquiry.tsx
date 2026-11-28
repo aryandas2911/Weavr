@@ -1,19 +1,25 @@
 'use client';
-import {useEffect,useState} from 'react';
+import {Suspense, useEffect, useState} from 'react';
+import {useSearchParams} from 'next/navigation';
 import {contact,services} from '../content';
 
-export function Inquiry(){
+function ProjectSelection({onSelect}: {onSelect: (project: string) => void}) {
+  const requestedService = useSearchParams().get('service');
+  useEffect(()=>{
+    const selectFromUrl=()=>{
+      const id=requestedService || location.hash.slice(1);
+      onSelect(services.some(service=>service.id===id) ? id : '');
+    };
+    selectFromUrl();
+    addEventListener('hashchange',selectFromUrl);
+    return ()=>removeEventListener('hashchange',selectFromUrl);
+  },[requestedService, onSelect]);
+  return null;
+}
+
+export function Inquiry({recipient=contact.email}: {recipient?: string}){
   const [project,setProject]=useState('');
   const [status,setStatus]=useState('');
-  useEffect(()=>{
-    const selectFromHash=()=>{
-      const id=location.hash.slice(1);
-      if(services.some(service=>service.id===id))setProject(id);
-    };
-    selectFromHash();
-    addEventListener('hashchange',selectFromHash);
-    return ()=>removeEventListener('hashchange',selectFromHash);
-  },[]);
   function prepare(event:React.FormEvent<HTMLFormElement>){
     event.preventDefault();
     const data=new FormData(event.currentTarget);
@@ -21,8 +27,8 @@ export function Inquiry(){
     const type=services.find(item=>item.id===project)?.name || 'Other';
     const lines=Array.from(data.entries()).filter(([,value])=>String(value).trim()).map(([key,value])=>labels[key]+': '+(key==='project'?type:String(value).trim()));
     const body=lines.join('\n\n');
-    if(contact.email){
-      location.href='mailto:'+contact.email+'?subject='+encodeURIComponent('WEAVR inquiry / '+type)+'&body='+encodeURIComponent(body);
+    if(recipient){
+      location.href='mailto:'+recipient+'?subject='+encodeURIComponent('WEAVR inquiry / '+type)+'&body='+encodeURIComponent(body);
       setStatus('Your email draft is ready to review and send in your email app.');
       return;
     }
@@ -34,8 +40,9 @@ export function Inquiry(){
       setStatus('Your brief is ready to save on this device.');
     } catch {setStatus('The download couldn’t start. Your brief is still in the form.')}
   }
-  return <form className="inquiry" id="inquiry" onSubmit={prepare} data-reveal>
-    <div className="inquiry-head"><h2>Project inquiry</h2><p>{contact.email?'A few details and we’ll take it from there.':'Fill this in to download a project brief.'}</p></div>
+  return <form className="inquiry" id="inquiry" aria-labelledby="inquiry-title" onSubmit={prepare} data-reveal>
+    <Suspense fallback={null}><ProjectSelection onSelect={setProject}/></Suspense>
+    <div className="inquiry-head"><h2 id="inquiry-title">Project enquiry</h2><p>{recipient?'Add a few details, then review and send your enquiry from your email app.':'Fill this in to download a project brief.'}</p></div>
     <div className="fields">
       <label>Full name<input name="name" autoComplete="name" required maxLength={120} pattern=".*\S.*"/></label>
       <label>Email address<input name="email" type="email" autoComplete="email" required maxLength={254}/></label>
@@ -45,6 +52,6 @@ export function Inquiry(){
       <label>Preferred timeline <small>(optional)</small><input name="timeline" maxLength={120}/></label>
       <label className="wide">Project description<textarea name="description" required minLength={10} maxLength={3000} rows={4} onChange={event=>event.target.setCustomValidity(event.target.value.trim().length>=10||!event.target.value?'':'Please describe your project in at least 10 characters.')}/></label>
     </div>
-    <div className="form-foot"><button className="button" type="submit">{contact.email?'Prepare email draft':'Download project brief'}<span className="arrow" aria-hidden="true">↗</span></button><p role="status" aria-live="polite">{status}</p></div>
+    <div className="form-foot"><button className="button" type="submit">{recipient?'Prepare email draft':'Download project brief'}<span className="arrow" aria-hidden="true">↗</span></button><p role="status" aria-live="polite">{status}</p></div>
   </form>
 }

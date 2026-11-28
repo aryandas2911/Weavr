@@ -1,0 +1,248 @@
+.services-showcase {
+  padding-block: clamp(5.75rem, 10.5vw, 11rem);
+  background:
+    radial-gradient(ellipse at 95% 32%, rgb(152 206 243 / 32%), transparent 52%),
+    radial-gradient(ellipse at 7% 35%, rgb(233 220 234 / 82%), transparent 58%),
+    linear-gradient(to bottom, var(--paper) 5%, #fae9ec 62%, var(--lavender));
+  color: var(--navy);
+}
+
+.services-showcase__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+  align-items: end;
+  gap: clamp(1.5rem, 6vw, 6rem);
+  margin-bottom: clamp(2.75rem, 6vw, 6rem);
+}
+.services-showcase__head h2 {
+  max-width: 17ch;
+  margin: 1.05rem 0 0;
+  font-size: clamp(2.55rem, 5.3vw, 5.5rem);
+  text-wrap: balance;
+}
+.services-showcase__head > p {
+  max-width: 36ch;
+  margin: 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  line-height: 1.65;
+  color: var(--slate);
+}
+
+.service-discovery {
+  display: grid;
+  gap: .5rem;
+}
+.service-discovery__item {
+  --row-padding: clamp(1rem, 2.5vw, 2.2rem);
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  border: 1px solid color-mix(in srgb, var(--navy) 17%, transparent);
+  border-radius: .95rem;
+  background: rgb(255 255 255 / 36%);
+  transition: border-color .3s ease;
+}
+.service-discovery__item h3 { margin: 0; }
+.service-discovery__item::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(115deg, var(--paper), var(--lavender), var(--ice));
+  background-size: 160% 100%;
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+}
+.service-discovery__item[data-expanded="true"] { border-color: color-mix(in srgb, var(--violet) 55%, transparent); }
+.service-discovery__item[data-expanded="true"]::before {
+  opacity: .76;
+  animation: service-highlight-drift 14s ease-in-out infinite alternate;
+}
+.service-discovery__item:hover { border-color: color-mix(in srgb, var(--violet) 55%, transparent); }
+
+@keyframes service-highlight-drift {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+.service-discovery__trigger {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  display: grid;
+  grid-template-columns: clamp(1.5rem, 4vw, 3.5rem) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(.65rem, 1.75vw, 1.65rem);
+  width: 100%;
+  padding: clamp(1.05rem, 1.85vw, 1.75rem) var(--row-padding);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.service-discovery__trigger::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(100deg, rgb(249 191 184 / 38%), rgb(233 220 234 / 64%), rgb(152 206 243 / 20%));
+  transform: translateX(-101%);
+  transition: transform .54s var(--ease);
+  pointer-events: none;
+}
+.service-discovery__trigger:is(:hover, :focus-visible)::before { transform: translateX(0); }
+.service-discovery__trigger:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: -3px;
+  border-radius: .95rem;
+}
+.service-discovery__number {
+  color: var(--violet);
+  font: 700 .83rem/1 var(--body);
+  letter-spacing: .1em;
+}
+.service-discovery__title {
+  font: 700 clamp(1.3rem, 2.65vw, 2.65rem)/1.1 var(--display);
+  letter-spacing: -.045em;
+  transition: transform .34s var(--ease);
+}
+.service-discovery__trigger:is(:hover, :focus-visible) .service-discovery__title { transform: translateX(.3rem); }
+
+.service-discovery__icon {
+  display: grid;
+  place-items: center;
+  width: clamp(1.75rem, 3.5vw, 2.65rem);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--violet) 43%, transparent);
+  border-radius: 50%;
+  color: var(--navy);
+  transition: transform .34s var(--ease), background-color .25s ease;
+}
+.service-discovery__icon::before,
+.service-discovery__icon::after {
+  content: "";
+  grid-area: 1 / 1;
+  width: .8rem;
+  height: 1.5px;
+  background: currentColor;
+}
+.service-discovery__icon::after { transform: rotate(90deg); }
+.service-discovery__trigger:is(:hover, :focus-visible) .service-discovery__icon {
+  transform: rotate(12deg);
+  background: var(--lavender);
+}
+.service-discovery__trigger[aria-expanded="true"] .service-discovery__icon {
+  transform: rotate(45deg);
+  background: var(--lavender);
+}
+.service-discovery__trigger[aria-expanded="true"]:is(:hover, :focus-visible) .service-discovery__icon { transform: rotate(52deg); }
+
+.service-discovery__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .48s var(--ease), opacity .23s ease;
+}
+[data-expanded="true"] > .service-discovery__panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition: grid-template-rows .48s var(--ease), opacity .34s ease .04s;
+}
+.service-discovery__clip { min-height: 0; overflow: hidden; }
+.service-discovery__details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  padding: clamp(.5rem, 1.2vw, 1.1rem) var(--row-padding) clamp(1.3rem, 2.5vw, 2.25rem);
+}
+.service-discovery__summary > *,
+.service-discovery__details dl > div {
+  opacity: 0;
+  transform: translateY(.45rem);
+  transition: opacity .22s ease, transform .34s var(--ease);
+}
+.service-discovery__summary > p {
+  margin: 0 0 1.25rem;
+  max-width: 46ch;
+  font-size: clamp(1.05rem, 1.45vw, 1.25rem);
+  line-height: 1.6;
+}
+.service-discovery__details dl { margin: 0; }
+.service-discovery__details dl > div {
+  border-top: 1px solid var(--rule);
+  padding-block: .7rem;
+}
+.service-discovery__details dt {
+  color: var(--violet);
+  font-weight: 800;
+  font-size: .84rem;
+  letter-spacing: .045em;
+}
+.service-discovery__details dd { margin: .2rem 0 0; line-height: 1.5; }
+.service-discovery__item[data-expanded="true"] :is(.service-discovery__summary > *, dl > div) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .08s;
+}
+.service-discovery__item[data-expanded="true"] :is(.service-discovery__summary > div, dl > div + div) { transition-delay: .15s; }
+
+.services-showcase__foot {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 5vw, 5rem);
+}
+.services-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  min-height: 3.25rem;
+  padding: .55rem .6rem .55rem 1.25rem;
+  border: 1px solid var(--navy);
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--paper);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  transition: background-color .26s ease, border-color .26s ease, color .26s ease, transform .28s var(--ease), box-shadow .26s ease;
+}
+.services-cta--outline { background: rgb(255 255 255 / 38%); color: var(--navy); }
+.services-cta__arrow {
+  display: grid;
+  place-items: center;
+  flex: 0 0 2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--navy);
+  transition: background-color .26s ease, color .26s ease;
+}
+.services-cta--outline .services-cta__arrow { background: var(--lavender); }
+.services-cta__arrow svg { transition: transform .28s var(--ease); }
+.services-cta:is(:hover, :focus-visible) {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 .45rem 1.25rem rgb(117 80 162 / 22%);
+}
+.services-cta--outline:is(:hover, :focus-visible) { background: var(--lavender); color: var(--navy); }
+.services-cta:is(:hover, :focus-visible) .services-cta__arrow { background: white; }
+.services-cta--outline:is(:hover, :focus-visible) .services-cta__arrow { background: var(--violet); color: white; }
+.services-cta:is(:hover, :focus-visible) svg { transform: translate(.1rem, -.1rem); }
+.services-cta:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+
+@media (max-width: 720px) {
+  .services-showcase__head,
+  .service-discovery__details { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-discovery__item[data-expanded="true"]::before { animation: none; }
+  .service-discovery__trigger:is(:hover, :focus-visible) .service-discovery__title,
+  .services-cta:is(:hover, :focus-visible),
+  .services-cta:is(:hover, :focus-visible) svg { transform: none; }
+}

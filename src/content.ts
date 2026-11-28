@@ -3,14 +3,74 @@ export const navigation = [
 ] as const;
 
 export const services = [
-  {id:'websites', name:'Website Design', title:'A site that earns the visit.', detail:'A clear, mobile friendly site designed around your customers, services and budget.', includes:'Strategy, design, responsive build, CMS.', fit:'Local businesses, growing teams and service providers.', deliver:'A tested site, editable content, handover.'},
-  {id:'landing-pages', name:'Landing Pages', title:'One page. One clear action.', detail:'A focused destination built around a single, unmistakable next step.', includes:'Message, design, build, conversion tracking.', fit:'Launches, waitlists and paid campaigns.', deliver:'A responsive page, event plan, test notes.'},
-  {id:'web-apps', name:'Web Applications', title:'Complex work, made simple.', detail:'We build practical browser tools that reduce repetitive work and fit your existing workflow.', includes:'Workflow mapping, prototyping, frontend build.', fit:'Portals, internal tools and products.', deliver:'A tested app, component library, handover.'},
-  {id:'ui-ux', name:'UI/UX Design', title:'Every screen with a job.', detail:'We map the journey, then refine every screen around it.', includes:'Architecture, wireframes, interaction, accessibility.', fit:'Early products and teams sharpening an interface.', deliver:'Prototypes, responsive screens, specs.'},
-  {id:'redesign', name:'Website Redesign', title:'Keep the good. Fix the friction.', detail:'An audit-led rebuild of what works and what gets in the way.', includes:'Audit, visual redesign, migration planning.', fit:'Outdated sites and confusing navigation.', deliver:'A replacement site, content plan, redirects.'},
-  {id:'performance', name:'SEO & Performance', title:'Fast. Findable. Dependable.', detail:'Technical fixes for pages that should load quickly and rank well.', includes:'Core Web Vitals, metadata, crawlability, assets.', fit:'Slow sites, migrations and launch prep.', deliver:'A prioritized audit and agreed fixes.'},
-  {id:'branding', name:'Branding', title:'Look like yourself, everywhere.', detail:'A visual system that carries from your site to everywhere else.', includes:'Direction, type, color, wordmark, guidelines.', fit:'New ventures and refreshed identities.', deliver:'Identity assets and a practical style guide.'},
+  {
+    id: "websites",
+    name: "Website Development",
+    title: "A site that earns the visit.",
+    detail: "Build credibility and turn online visitors into customers with a fast, responsive website tailored to your business.",
+    includes: "Custom design, development, CMS, on-page SEO",
+    fit: "Businesses building their online presence",
+    deliver: "A tested site, editable content, handover.",
+  },
+  {
+    id: "landing-pages",
+    name: "Landing Pages",
+    title: "One page. One clear action.",
+    detail: "Turn campaign traffic into enquiries, sign-ups and sales with conversion-focused landing pages.",
+    includes: "Responsive design, strategic CTAs, lead forms, analytics integration",
+    fit: "Marketing campaigns and product launches",
+    deliver: "A responsive page, event plan, test notes.",
+  },
+  {
+    id: "web-apps",
+    name: "Custom Web Applications",
+    title: "Complex work, made simple.",
+    detail: "Simplify operations with scalable web applications built around your business requirements.",
+    includes: "Dashboards, portals, databases, API integrations",
+    fit: "Businesses with unique operational needs",
+    deliver: "A tested app, component library, handover.",
+  },
+  {
+    id: "ui-ux",
+    name: "UI/UX Design",
+    title: "Every screen with a job.",
+    detail: "Make your digital products easier to navigate, more engaging and more intuitive for your customers.",
+    includes: "User research, wireframes, prototypes, design systems",
+    fit: "New and existing digital products",
+    deliver: "Prototypes, responsive screens, specs.",
+  },
+  {
+    id: "redesign",
+    name: "Website Redesign",
+    title: "Keep the good. Fix the friction.",
+    detail: "Transform your existing website into a modern, high-performing experience that supports your business goals.",
+    includes: "UX audit, visual redesign, performance optimization",
+    fit: "Businesses with outdated or underperforming websites",
+    deliver: "A replacement site, content plan, redirects.",
+  },
+  {
+    id: "automation",
+    name: "AI & Workflow Automation",
+    title: "Make more time for meaningful work.",
+    detail: "Reduce repetitive work and free up your team's time through intelligent, automated workflows.",
+    includes: "AI agents, workflow automation, third-party integrations",
+    fit: "Teams looking to improve operational efficiency",
+    deliver: "Tested workflows and a handover guide.",
+  },
+  {
+    id: "custom-ai-ml",
+    name: "Custom AI/ML Solutions",
+    title: "Put your data to work.",
+    detail: "Put your business data to work with intelligent applications designed around your specific challenges.",
+    includes: "AI assistants, ML models, knowledge systems, custom integrations",
+    fit: "Businesses seeking tailored AI capabilities",
+    deliver: "A tested solution and guidance for your team.",
+  },
 ];
+
+export function enquiryHref(serviceId?: string) {
+  return serviceId ? `/contact/?service=${encodeURIComponent(serviceId)}#inquiry` : '/contact/#inquiry';
+}
 
 export const steps = [
   {name:'Discover', description:'How the business works, who it serves, what’s missing.', outcome:'A shared brief.'},

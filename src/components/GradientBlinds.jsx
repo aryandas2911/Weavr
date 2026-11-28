@@ -298,6 +298,7 @@ const GradientBlinds = ({
   const wakeRef = useRef(null);
   const colorKey = (gradientColors && gradientColors.length ? gradientColors : ['#FF9FFC', '#5227FF']).join(',');
   const settings = {
+    interactionRef,
     paused,
     colorKey,
     gradientColors,
@@ -342,7 +343,7 @@ const GradientBlinds = ({
       premultipliedAlpha: false
     });
     if (!container || !canvas || !gl) return undefined;
-    const interactionArea = interactionRef?.current ?? container;
+    const interactionArea = settingsRef.current.interactionRef?.current ?? container;
     const shader = link(gl);
     if (!shader) return undefined;
     const u = shader.uniforms;
@@ -631,7 +632,7 @@ const GradientBlinds = ({
       gl.deleteProgram(shader.program);
       if (!canvas.isConnected) gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [interactionRef]);
+  }, []);
 
   useEffect(() => {
     wakeRef.current?.();
