@@ -11,7 +11,7 @@ export function PageIntro({label,title,children}:{label:string;title:string;chil
   return <section className="page-intro shell"><Eyebrow>{label}</Eyebrow><h1 data-split>{title}</h1><div className="page-lead" data-reveal>{children}</div></section>
 }
 export function Closing({title="Good idea? Let’s make it real."}:{title?:string}){
-  return <section className="closing"><div className="shell closing-inner" data-reveal><div className="closing-copy"><Eyebrow>Start a conversation</Eyebrow><h2>{title}</h2><div className="actions"><BookingLink/><Link className="button outline" href={contact.email?'mailto:'+contact.email:'/contact/#email'}>Email us</Link></div></div><span className="closing-logo-stop" aria-hidden="true" data-logo-stop><img src="/Logo.png" alt="" width="641" height="456" loading="lazy"/></span></div></section>
+  return <section className="closing"><div className="shell closing-inner"><div className="closing-copy"><Eyebrow>Tell us about your business</Eyebrow><h2>{title}</h2><div className="actions"><BookingLink/><Link className="button outline" href={contact.email?'mailto:'+contact.email:'/contact/#email'}>Email us</Link></div></div><span className="closing-logo-stop" aria-hidden="true" data-logo-stop><img src="/Logo.png" alt="" width="641" height="456" loading="lazy"/></span></div></section>
 }
 export const principles=[
   ['Intentional design','Every element earns its place.'],
