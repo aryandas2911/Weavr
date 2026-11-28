@@ -8,11 +8,12 @@ export function HeroAtmosphere(){
         lightMode
         threadCount={8}
         taper={5 / 7}
-        speed={0.09}
+        speed={0.2}
         thickness={1.65}
         glow={0.019}
         opacity={0.51}
         grain={0}
+        intro
         mouseInteraction={false}
         pulseOnClick={false}
       />

@@ -180,15 +180,6 @@ dd{margin-top:.4rem;color:var(--slate)}
 .contact-anchor{position:absolute;top:0}
 .contact-grid aside section{padding:1.25rem 0;border-top:1px solid var(--rule)}
 .contact-grid aside h2{font-size:2rem;margin-bottom:.5rem}
-.inquiry{background:var(--ice);border-radius:1rem;padding:clamp(1.3rem,4vw,3.5rem)}
-.inquiry h2{font-size:clamp(2.25rem,4.5vw,4.5rem);margin-bottom:.7rem}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.4rem 0}
-.fields label{min-width:0;display:grid;gap:.25rem;align-content:start;font-weight:800}
-.fields small{font-weight:600;display:contents}
-.fields .wide{grid-column:1/-1}
-.fields input,.fields select,.fields textarea{width:100%;min-width:0;background:var(--paper);color:var(--navy);border:1px solid var(--slate);border-radius:.45rem;font:500 1rem var(--body);padding:.7rem}
-.fields textarea{resize:vertical}
-.inquiry [role=status]:not(:empty){margin-top:.7rem}
 @media(max-width:900px){
   .desktop-nav,.desktop-book{display:none}.menu-open{display:inline-flex}
   .footer{flex-wrap:wrap}
@@ -219,7 +210,6 @@ dd{margin-top:.4rem;color:var(--slate)}
   .closing-logo-stop{display:block;width:min(100%,52svh,28rem);height:min(52svh,28rem);margin:.75rem auto 0}
   .process-grid aside{position:static}
   .process-logo{max-width:12rem;margin:1.2rem auto 0}
-  .fields{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-delay:0ms!important;transition-duration:.001ms!important}.woven-mark{display:none}.hero-logo{opacity:1}.scrolling-logo{display:none}}
 

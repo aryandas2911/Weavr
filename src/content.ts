@@ -68,8 +68,8 @@ export const services = [
   },
 ];
 
-export function enquiryHref(serviceId?: string) {
-  return serviceId ? `/contact/?service=${encodeURIComponent(serviceId)}#inquiry` : '/contact/#inquiry';
+export function enquiryHref(serviceId?: string, path: '/' | '/contact/' = '/contact/') {
+  return serviceId ? `${path}?service=${encodeURIComponent(serviceId)}#inquiry` : `${path}#inquiry`;
 }
 
 export const steps = [
@@ -86,9 +86,14 @@ function httpsUrl(value?: string) {
 }
 const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() ?? '';
 const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() ?? '';
+const formId = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID?.trim() ?? '';
+const publicEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '';
+export const primaryContactEmail = 'aryandas2911@gmail.com';
 export const contact = {
   booking: httpsUrl(process.env.NEXT_PUBLIC_BOOKING_URL),
-  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '',
+  email: publicEmail,
+  enquiryEmail: publicEmail || primaryContactEmail,
+  enquiryEndpoint: /^[a-z0-9]{6,32}$/i.test(formId) ? `https://formspree.io/f/${formId}` : '',
   whatsapp: /^\+?[1-9]\d{6,14}$/.test(phone) ? 'https://wa.me/' + phone.replace('+','') : '',
 };
 export const siteOrigin = httpsUrl(process.env.NEXT_PUBLIC_SITE_URL);

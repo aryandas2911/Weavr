@@ -38,7 +38,7 @@ export function ServiceAccordion() {
                   <div className="service-discovery__summary">
                     <p>{service.detail}</p>
                     <div>
-                      <ServiceCta href={enquiryHref(service.id)} outline>Discuss Your Requirements</ServiceCta>
+                      <ServiceCta href={enquiryHref(service.id, '/')} outline>Discuss Your Requirements</ServiceCta>
                     </div>
                   </div>
                   <dl>

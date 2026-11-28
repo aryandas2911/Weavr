@@ -1,13 +1,13 @@
-import Link from 'next/link';
 import {ApproachAccordion} from '../components/approach-accordion';
 import ColorBends from '../components/ColorBends';
-import {Closing,Eyebrow,principles,pageMetadata} from '../components/editorial';
+import {Eyebrow,pageMetadata} from '../components/editorial';
+import {ContactSection} from '../components/contact-section';
 import {HeroActions} from '../components/hero-actions';
 import {HeroAtmosphere} from '../components/hero-atmosphere';
 import {BookingLink} from '../components/navigation';
 import {ServiceAccordion} from '../components/service-accordion';
 import {ServiceCta} from '../components/service-cta';
-import {enquiryHref, steps} from '../content';
+import {enquiryHref} from '../content';
 
 export const metadata={...pageMetadata('Web Design & Development for Growing Businesses','Fast, affordable websites, SEO and custom web applications for Indian small and medium businesses.','/'),title:{absolute:'Weavr | Web Design & Development for Growing Businesses'}};
 
@@ -76,17 +76,11 @@ export default function Home(){
         </div>
         <ServiceAccordion/>
         <div className="services-showcase__foot" data-reveal>
-          <ServiceCta href={enquiryHref()}>Have a project in mind? Let's talk</ServiceCta>
+          <ServiceCta href={enquiryHref(undefined, '/')}>Have a project in mind? Let's talk</ServiceCta>
         </div>
       </div>
     </section>
 
-    <section className="band lavender"><div className="shell approach"><div className="approach-art" aria-hidden="true" data-logo-stop><div className="logo-orbit"><span/><span/><span/></div></div><div className="approach-copy" data-reveal><Eyebrow>Our approach</Eyebrow><h2>Good work starts with good questions.</h2><p>We ask first, design second. Then we build it properly.</p><Link className="text-link" href="/process/">See how we work <span aria-hidden="true">↗</span></Link></div></div></section>
-
-    <section className="band blue"><div className="shell why"><div className="why-head" data-reveal><Eyebrow>Why WEAVR</Eyebrow><h2>Care in the<br/>details.</h2></div><dl className="principles" data-stagger>{principles.map(([title,copy])=><div key={title}><dt>{title}</dt><dd>{copy}</dd></div>)}</dl></div></section>
-
-    <section className="section shell"><div className="section-head" data-reveal><div><Eyebrow>Process</Eyebrow><h2>From first call to launch.</h2></div><Link className="button outline" href="/process/">Explore the process <span className="arrow" aria-hidden="true">↗</span></Link></div><ol className="steps-preview">{steps.map((step,i)=><li key={step.name}><Link href={'/process/#step-'+(i+1)}><small>0{i+1}</small><span>{step.name}</span><span className="step-arrow" aria-hidden="true">↗</span></Link></li>)}</ol></section>
-
-    <Closing/>
+    <ContactSection/>
   </>;
 }

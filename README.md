@@ -4,4 +4,6 @@ A six-page creative studio site built with the Next.js App Router, TypeScript an
 
 Run `npm ci`, then `npm run dev`. Create the static export with `npm run build`.
 
-Copy `.env.example` to `.env.local` and set the site origin, Calendly URL, email address and international WhatsApp number before building. With email configured, the inquiry form opens a populated email draft. Without email, the visitor can download a plain-text brief locally. The site does not collect form data on a server. Direct delivery can be added through a server-side provider once a destination and credentials are available.
+Copy `.env.example` to `.env.local` and set the site origin, booking URL, email address and international WhatsApp number before building.
+
+For direct enquiries, create a [Formspree form](https://help.formspree.io/articles/building-your-form/submit-forms-with-javascript-ajax), configure its notification recipient for Weavr, and set `NEXT_PUBLIC_FORMSPREE_FORM_ID` to the form ID before rebuilding the static export. The form ID is public. Do not put a secret API key in this variable. With no form ID, visitors can still reach Weavr through the email link.

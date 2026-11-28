@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import {useEffect,useRef} from 'react';
-import {navigation,contact} from '../content';
+import {navigation,contact,enquiryHref} from '../content';
 
 const Arrow=({className='arrow'}:{className?:string})=><svg className={className} viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 13 13 3M5.5 3H13v7.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>;
 
@@ -46,7 +46,30 @@ export function Header(){
   );
 }
 export function Footer(){
-  const pathname=usePathname();
-  if(pathname==='/')return null;
-  return <footer className="footer-wrap"><div className="shell footer"><Wordmark/><nav aria-label="Footer navigation">{navigation.map(([name,href])=><Link key={href} href={href}>{name}</Link>)}</nav><small>Websites and digital tools for growing businesses.</small></div></footer>;
+  return (
+    <footer className="footer-wrap">
+      <div className="shell">
+        <div className="footer-layout">
+          <div className="footer-brand">
+            <Wordmark/>
+            <p>Independent web development for growing businesses.</p>
+          </div>
+          <nav aria-labelledby="footer-explore">
+            <h2 id="footer-explore">Explore</h2>
+            <ul>
+              {navigation.filter(([, href]) => href !== '/').map(([name, href]) => (
+                <li key={href}><Link href={href}>{name}</Link></li>
+              ))}
+            </ul>
+          </nav>
+          <div className="footer-contact">
+            <h2>Get in touch</h2>
+            <Link href={enquiryHref(undefined, '/')}>Start a project <Arrow/></Link>
+            <a href={`mailto:${contact.enquiryEmail}`}>Email Weavr</a>
+          </div>
+        </div>
+        <div className="footer-legal"><small>© Weavr</small></div>
+      </div>
+    </footer>
+  );
 }

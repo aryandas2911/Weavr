@@ -8,14 +8,13 @@ const revealSelector = [
   '.steps-preview > *', '.page-intro > *', '.about-grid > *',
   '.editorial-grid > :first-child', '.editorial-grid .principles > *',
   '.service-detail > dl', '.process-grid aside > nav', '.team-contact > article',
-  '.closing-copy', '.footer > *',
+  '.closing-copy',
 ].join(', ');
 
 const parallaxLayerSelector = [
   '.ticker-track', '.section-head', '.services-showcase__head', '.approach-art', '.why-head', '.closing-copy',
   '.page-intro > h1', '.about-grid .hero-art-glow', '.editorial-grid > :first-child',
   '.service-detail > dl', '.process-logo', '.team-contact > article:last-child',
-  '.footer > small',
 ].join(', ');
 
 export function Motion(){
@@ -56,11 +55,6 @@ export function Motion(){
         };
 
         const hero = document.querySelector<HTMLElement>('.hero');
-        if (hero && hero.getBoundingClientRect().bottom > 0) {
-          gsap.from(hero.querySelectorAll('.hero-line, .hero-tagline, .actions'), {
-            y: 28, opacity: 0, duration: 1.35, stagger: .16, ease: 'power2.out', clearProps: 'opacity,transform',
-          });
-        }
 
         const reveal = (elements: Iterable<HTMLElement>) => {
           for (const target of elements) {
@@ -100,7 +94,7 @@ export function Motion(){
           if (studioHead) drift(studio, studioHead, 18);
         }
         const sections = document.querySelectorAll<HTMLElement>(
-          'main section:not(.hero, .studio-band), main > .ticker, .footer-wrap',
+          'main section:not(.hero, .studio-band), main > .ticker',
         );
         for (const section of sections) {
           const layer = section.querySelector<HTMLElement>(parallaxLayerSelector);
