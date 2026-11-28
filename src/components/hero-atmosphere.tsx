@@ -4,7 +4,7 @@ export function HeroAtmosphere(){
   return (
     <div className="hero-visual" aria-hidden="true">
       <WebThreads
-        colors={['#c694bd','#a98cde','#d5b9ed','#b698e1','#a59ad4']}
+        colors={['#cb86b6','#a489dd','#d8b9ee','#b294df','#8f96d4']}
         lightMode
         threadCount={8}
         taper={5 / 7}
@@ -22,6 +22,10 @@ export function HeroAtmosphere(){
         <span className="hero-orb"/>
         <span className="hero-ring"/>
         <span className="hero-ring"/>
+        <span className="hero-orb"/>
+        <span className="hero-orb"/>
+        <span className="hero-orb"/>
+        <span className="hero-orb"/>
         <span className="hero-orb"/>
       </div>
     </div>

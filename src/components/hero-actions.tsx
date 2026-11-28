@@ -7,11 +7,13 @@ import StarBorder from './StarBorder';
 const starBorderAnimation = {
   theme: 'light',
   radius: 999,
-  color: '#ac83d7',
-  trailColor: '#7550a2',
-  thickness: 1.75,
+  color: '#a16bd1',
+  trailColor: '#8660b4',
+  thickness: 2.15,
   duration: 4.8,
-  glow: 0.32,
+  trailLength: 0.36,
+  glow: 0.78,
+  sparkle: true,
   hover: 'brighten',
   clickPulse: false,
 } as const;

@@ -25,7 +25,7 @@ export function Header(){
   ));
 
   return (
-    <header className="top" data-header>
+    <header className="top">
       <div className="shell top-inner">
         <Wordmark/>
         <nav className="desktop-nav nav-capsule" aria-label="Main navigation">{makeLinks()}</nav>

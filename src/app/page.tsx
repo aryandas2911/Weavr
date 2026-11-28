@@ -2,12 +2,13 @@ import Link from 'next/link';
 import {Closing,Eyebrow,principles,pageMetadata} from '../components/editorial';
 import {HeroActions} from '../components/hero-actions';
 import {HeroAtmosphere} from '../components/hero-atmosphere';
+import {BookingLink} from '../components/navigation';
 import {ServiceAccordion} from '../components/service-accordion';
 import {steps} from '../content';
 
 export const metadata={...pageMetadata('Web Design & Development for Growing Businesses','Fast, affordable websites, SEO and custom web applications for Indian small and medium businesses.','/'),title:{absolute:'Weavr | Web Design & Development for Growing Businesses'}};
 
-const tickerWords=['Strategy','Design','Development','Detail'];
+const tickerWords=['Strategy','Design','Development','Automation'];
 
 export default function Home(){
   return <>
@@ -25,7 +26,23 @@ export default function Home(){
 
     <div className="ticker" aria-label="WEAVR disciplines"><div className="ticker-track">{tickerWords.map((word)=><span key={word}>{word}<i aria-hidden="true"/></span>)}</div></div>
 
-    <section className="band blue" id="studio"><div className="shell studio-grid" data-reveal><div className="studio-head"><Eyebrow>For growing businesses</Eyebrow><h2>Digital tools that work as hard as you do.</h2></div><div className="studio-copy"><p>We build websites, landing pages and custom applications around your customers, budget and day-to-day needs. One team from first brief to launch.</p><div className="studio-visual" aria-hidden="true"><span>Strategy</span><i/><span>Design</span><i/><span>Development</span></div><Link className="text-link" href="/about/">Meet Weavr <span aria-hidden="true">↗</span></Link></div></div></section>
+    <section className="band blue studio-band" id="studio">
+      <div className="shell studio-grid">
+        <div className="studio-head">
+          <Eyebrow>Built for growing businesses</Eyebrow>
+          <h2>Digital solutions that move your business forward.</h2>
+        </div>
+        <div className="studio-copy">
+          <p>We build websites, landing pages and custom applications around your customers, budget and day-to-day needs. One team from first brief to launch.</p>
+          <ul className="studio-visual" aria-label="Studio services">
+            <li>Website &amp; Apps</li>
+            <li>Digital Design</li>
+            <li>AI &amp; Automation</li>
+          </ul>
+          <BookingLink className="text-link" label="Let's Discuss Your Project" showArrow={false}/>
+        </div>
+      </div>
+    </section>
 
     <section className="storytelling" aria-labelledby="story-title" data-story>
       <div className="story-sticky">
