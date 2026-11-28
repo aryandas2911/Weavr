@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import {ApproachAccordion} from '../components/approach-accordion';
 import {Closing,Eyebrow,principles,pageMetadata} from '../components/editorial';
 import {HeroActions} from '../components/hero-actions';
 import {HeroAtmosphere} from '../components/hero-atmosphere';
@@ -44,18 +45,7 @@ export default function Home(){
       </div>
     </section>
 
-    <section className="storytelling" aria-labelledby="story-title" data-story>
-      <div className="story-sticky">
-        <div className="story-progress" aria-hidden="true"><i/></div>
-        <div className="story-mark" aria-hidden="true"><span className="story-thread thread-one"/><span className="story-thread thread-two"/><span className="story-thread thread-three"/><img src="/Logo.png" alt="" width="641" height="456"/></div>
-        <div className="story-copy">
-          <article className="story-panel story-panel-one"><p>01 / Find the thread</p><h2 id="story-title">Start with what matters.</h2><span>We make the real problem visible before we make anything else.</span></article>
-          <article className="story-panel story-panel-two"><p>02 / Weave the system</p><h2>Make every part belong.</h2><span>Words, interactions and engineering pull in the same direction.</span></article>
-          <article className="story-panel story-panel-three"><p>03 / Put it to work</p><h2>Leave with something clear.</h2><span>A considered website your team can use, change and grow.</span></article>
-        </div>
-        <div className="story-count" aria-hidden="true"><span>01</span><span>02</span><span>03</span></div>
-      </div>
-    </section>
+    <ApproachAccordion/>
 
     <section className="section shell"><div className="section-head" data-reveal><div><Eyebrow>Services</Eyebrow><h2>What we do.</h2></div><p className="section-note">Seven ways we help good ideas show up well.</p></div><ServiceAccordion/></section>
 

@@ -2,7 +2,6 @@
 import {useEffect,useRef} from 'react';
 import {usePathname} from 'next/navigation';
 
-const storyLayout = '(min-width: 681px) and (min-height: 560px)';
 const revealSelector = [
   '[data-reveal]', '[data-stagger] > *',
   '.ticker-track > *', '.studio-grid > *', '.section-head',
@@ -44,7 +43,6 @@ export function Motion(){
       if(disposed||run!==animationRun||!media.matches)return;
       gsap.registerPlugin(ScrollTrigger);
       document.documentElement.classList.add('motion');
-      const layouts = gsap.matchMedia();
       const context=gsap.context(()=>{
         const driftLayers = new Set<HTMLElement>();
         const drift = (section: HTMLElement, layer: HTMLElement, distance: number) => {
@@ -94,7 +92,7 @@ export function Motion(){
           if (studioHead) drift(studio, studioHead, 18);
         }
         const sections = document.querySelectorAll<HTMLElement>(
-          'main section:not(.hero, .studio-band, [data-story]), main > .ticker, .footer-wrap',
+          'main section:not(.hero, .studio-band), main > .ticker, .footer-wrap',
         );
         for (const section of sections) {
           const layer = section.querySelector<HTMLElement>(parallaxLayerSelector);
@@ -103,49 +101,11 @@ export function Motion(){
           drift(section, layer, distance);
         }
 
-        const story=document.querySelector<HTMLElement>('[data-story]');
-        if(story){
-          layouts.add({pinned: storyLayout, all: 'all'}, ({conditions}) => {
-            const panels=gsap.utils.toArray<HTMLElement>('.story-panel',story);
-            if (!conditions?.pinned) {
-              reveal(story.querySelectorAll<HTMLElement>('.story-mark, .story-panel'));
-              const thread = story.querySelector<HTMLElement>('.story-thread');
-              if (thread) {
-                gsap.fromTo(thread, {y: -18}, {
-                  y: 18, ease: 'none',
-                  scrollTrigger: {trigger: story, start: 'top bottom', end: 'bottom top', scrub: .7},
-                });
-              }
-              return;
-            }
-            const threads=gsap.utils.toArray<HTMLElement>('.story-thread',story);
-            const marks=gsap.utils.toArray<HTMLElement>('.story-count span',story);
-            const mark=story.querySelector<HTMLElement>('.story-mark');
-            const timeline=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:story,start:'top top',end:'bottom bottom',scrub:.75,invalidateOnRefresh:true}});
-            timeline
-              .to(panels[0],{autoAlpha:0,yPercent:-18,duration:1})
-              .to(threads[0],{xPercent:22,yPercent:-30,rotation:28,duration:1},0)
-              .to(threads[1],{xPercent:-17,yPercent:20,rotation:-24,duration:1},0)
-              .to(threads[2],{xPercent:14,yPercent:29,rotation:18,duration:1},0)
-              .to(mark,{rotation:135,scale:1.08,duration:1},0)
-              .to(panels[1],{autoAlpha:1,yPercent:0,duration:.8},.72)
-              .to(marks[0],{color:'rgba(252,230,224,.45)',duration:.2},.72)
-              .to(marks[1],{color:'#fce6e0',duration:.2},.72)
-              .to(panels[1],{autoAlpha:0,yPercent:-18,duration:1},1.85)
-              .to(threads[0],{xPercent:-15,yPercent:42,rotation:64,duration:1},1.85)
-              .to(threads[1],{xPercent:24,yPercent:-32,rotation:-58,duration:1},1.85)
-              .to(threads[2],{xPercent:-21,yPercent:-16,rotation:42,duration:1},1.85)
-              .to(mark,{rotation:360,scale:1,duration:1},1.85)
-              .to(panels[2],{autoAlpha:1,yPercent:0,duration:.8},2.55)
-              .to(marks[1],{color:'rgba(252,230,224,.45)',duration:.2},2.55)
-              .to(marks[2],{color:'#fce6e0',duration:.2},2.55);
-          });
-        }
         return () => {
           for (const layer of driftLayers) layer.removeAttribute('data-scroll-drift');
         };
       });
-      cleanup=()=>{layouts.revert();context.revert();document.documentElement.classList.remove('motion')};
+      cleanup=()=>{context.revert();document.documentElement.classList.remove('motion')};
     }
     const preference=()=>{cleanup();cleanup=()=>{};schedule();void animate()};
     media.addEventListener('change',preference);
